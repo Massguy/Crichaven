@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import FormField from "../utils/Form/FormField";
 import { update, generateData, isFormValid } from "../utils/Form/FormActions";
-import { loginUser } from ".././actions/user_actions";
+import { loginUser } from "../actions/user_actions";
 import { withRouter } from "react-router-dom";
 
 import { connect } from "react-redux";
@@ -46,7 +46,6 @@ class Login extends Component {
       formData: newFormData
     });
   };
-
   submitForm = event => {
     event.preventDefault();
 

@@ -6,6 +6,11 @@ export const validate = (elem, formData = []) => {
     const message = `${!valid ? "Must be a valid email" : ""}`;
     error = !valid ? [valid, message] : error;
   }
+  if (elem.validation.confirm) {
+    const valid = elem.value.trim() === formData[elem.validation.confirm].value;
+    const message = `${!valid ? "Password do not match" : ""}`;
+    error = !valid ? [valid, message] : error;
+  }
   if (elem.validation.required) {
     const valid = elem.value.trim() !== "";
     const message = `${!valid ? "This field is required" : ""}`;
@@ -40,7 +45,9 @@ export const generateData = (formData, formName) => {
   let loginData = {};
 
   for (let key in formData) {
-    loginData[key] = formData[key].value;
+    if (key !== "confirmPassword") {
+      loginData[key] = formData[key].value;
+    }
   }
   return loginData;
 };
