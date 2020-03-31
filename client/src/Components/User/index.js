@@ -1,17 +1,18 @@
 import React from "react";
 import UserLayout from "../../Hoc/User";
 import MyButton from "../../utils/Mybutton";
+import user_reducer from "../../reducers/user_reducer";
 
-export default function UserDashboard() {
+export default function UserDashboard({ user }) {
   return (
     <UserLayout>
       <div>
         <div className="user_nfo_panel">
           <h1>User Information</h1>
           <div>
-            <span>Name</span>
-            <span>Surname</span>
-            <span>Email</span>
+            <span>{user.userData.firstName}</span>
+            <span>{user.userData.lastName}</span>
+            <span>{user.userData.email}</span>
           </div>
           <MyButton
             type="default"

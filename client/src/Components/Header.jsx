@@ -1,6 +1,68 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+class Header extends Component {
+  state = {
+    page: [
+      {
+        name: "Home",
+        linkTo: "/",
+        public: true
+      },
+      {
+        name: "Cricket Bats",
+        linkTo: "/shop",
+        public: true
+      }
+    ],
+    user: [
+      {
+        name: "My Cart",
+        linkTo: "/user/cart",
+        public: false
+      },
+      {
+        name: "My Account",
+        linkTo: "/user/dashboard",
+        public: false
+      },
+      {
+        name: "Log In",
+        linkTo: "/register_login",
+        public: true
+      },
+      {
+        name: "Log out",
+        linkTo: "/user/logout",
+        public: false
+      }
+    ]
+  };
 
-export default class Header extends Component {
+  defaultLink = (item, i) => (
+    <Link to={item.linkTo} key={i}>
+      {item.name}
+    </Link>
+  );
+  showLinks = type => {
+    let list = [];
+    if (this.props.user.userData) {
+      type.forEach(item => {
+        if (!this.props.user.userData.isAuth) {
+          if (item.public === true) {
+            list.push(item);
+          }
+        } else {
+          if (item.name !== "Log In") {
+            list.push(item);
+          }
+        }
+      });
+    }
+    return list.map((item, i) => {
+      return this.defaultLink(item, i);
+    });
+  };
   render() {
     return (
       <header className="bck_b_light">
@@ -9,11 +71,20 @@ export default class Header extends Component {
             <div className="logo">CricHaven</div>
           </div>
           <div className="right">
-            <div className="top">Links</div>
-            <div className="bottom">Links</div>
+            <div className="top">{this.showLinks(this.state.user)}</div>
+            <div className="bottom">{this.showLinks(this.state.page)}</div>
           </div>
         </div>
+        {/* {console.log(this.showLinks(this.state.user))} */}
       </header>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    user: state.user
+  };
+}
+
+export default connect(mapStateToProps)(Header);
