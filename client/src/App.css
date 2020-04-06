@@ -765,6 +765,13 @@ header .log_out_link {
   padding: 0 0 0 29px;
 }
 
+.slides .slick-prev,
+.slides .slick-next {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+}
+
 .user_container .user_nfo_panel {
   background: #e4f7f7;
   padding: 20px;

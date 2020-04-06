@@ -9,7 +9,12 @@ require("dotenv").config();
 mongoose.Promise = global.Promise;
 mongoose.connect(
   process.env.DATABASE,
-  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+  },
   err => {
     if (err) console.error(err);
     else console.log("Connected to the mongodb");

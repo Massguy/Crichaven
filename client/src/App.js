@@ -8,6 +8,7 @@ import Layout from "../src/Hoc/Layout";
 import RegisterLogin from "../src/Components/Register_Login";
 import Register from "./Components/Register";
 import UserDashboard from "./Components/User/index";
+import Shop from "./Components/Shop/index";
 
 const App = () => {
   return (
@@ -21,7 +22,7 @@ const App = () => {
         <Route
           path="/register"
           exact
-          render={props => Auth(<Register {...props} />, false)}
+          render={(props) => Auth(<Register {...props} />, false)}
         />
         <Route
           path="/register_login"
@@ -29,6 +30,7 @@ const App = () => {
           component={Auth(RegisterLogin, false)}
         />
         <Route path="/" exact component={Auth(Home, null)} />
+        <Route path="/shop" exact component={Auth(Shop, null)} />
       </Switch>
     </Layout>
   );
