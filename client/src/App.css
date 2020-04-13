@@ -327,8 +327,7 @@ header .log_out_link {
   color: #828282;
 }
 
-.left,
-.right {
+.left .right {
   flex: 1;
 }
 
@@ -511,7 +510,8 @@ header .log_out_link {
 }
 
 .card_item_wrapper.grid_bars .image {
-  width: 420px;
+  min-width: 250px;
+  max-width: 250px;
   height: 211px;
   border: none;
 }

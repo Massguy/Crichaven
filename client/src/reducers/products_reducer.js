@@ -2,6 +2,7 @@ import {
   GET_PRODUCTS_BY_ARRIVAL,
   GET_PRODUCTS_BY_SELL,
   GET_BRANDS,
+  GET_PRODUCTS_TO_SHOP,
 } from ".././actions/types";
 
 export default function (state = {}, action) {
@@ -15,6 +16,13 @@ export default function (state = {}, action) {
       return { ...state, byArrival: action.payLoad };
     case GET_BRANDS:
       return { ...state, brands: action.payLoad };
+    case GET_PRODUCTS_TO_SHOP:
+      return {
+        ...state,
+        toShop: action.payLoad.cricketbats,
+        toShopSize: action.payLoad.size,
+      };
+
     default:
       return state;
   }

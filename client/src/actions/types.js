@@ -11,3 +11,5 @@ export const GET_PRODUCTS_BY_ARRIVAL = "get_products_by_arrival";
 export const GET_PRODUCTS_BY_SELL = "get_products_by_sell";
 
 export const GET_BRANDS = "get_brands";
+
+export const GET_PRODUCTS_TO_SHOP = "get_products_to_shop";

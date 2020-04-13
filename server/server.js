@@ -13,9 +13,9 @@ mongoose.connect(
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
   },
-  err => {
+  (err) => {
     if (err) console.error(err);
     else console.log("Connected to the mongodb");
   }
@@ -47,7 +47,7 @@ app.post("/api/product/cricketbat", auth, admin, (req, res) => {
     if (err) return res.json({ success: false, err });
     res.status(200).json({
       success: true,
-      cricketbat: doc
+      cricketbat: doc,
     });
   });
 });
@@ -59,7 +59,7 @@ app.get("/api/product/bat_by_id", (req, res) => {
   if (type === "array") {
     let ids = req.query.id.split(",");
     items = [];
-    items = ids.map(item => {
+    items = ids.map((item) => {
       return mongoose.Types.ObjectId(item);
     });
   }
@@ -70,6 +70,41 @@ app.get("/api/product/bat_by_id", (req, res) => {
     });
 });
 
+app.post("/api/product/shop", (req, res) => {
+  let order = req.body.order ? req.body.order : "desc";
+  let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
+  let limit = req.body.limit ? parseInt(req.body.limit) : 50;
+  let skip = parseInt(req.body.skip);
+  let findArgs = {};
+
+  for (let key in req.body.filters) {
+    if (req.body.filters[key].length > 0) {
+      console.log(req.body.filters);
+      if (key === "price") {
+        findArgs[key] = {
+          $gte: req.body.filters[key][0],
+          $lte: req.body.filters[key][1],
+        };
+        console.log(findArgs[key]);
+      } else {
+        findArgs[key] = req.body.filters[key];
+      }
+    }
+  }
+  Bat.find(findArgs)
+    .populate("brand")
+    .sort([[sortBy, order]])
+    .skip(skip)
+    .limit(limit)
+    .exec((err, cricketbats) => {
+      if (err) return res.status(400).send(err);
+      res.status(200).json({
+        size: cricketbats.length,
+        cricketbats,
+      });
+    });
+  res.status(200);
+});
 //sortbats
 
 app.get("/api/product/cricketbat", (req, res) => {
@@ -99,7 +134,7 @@ app.post("/api/product/brand", auth, admin, (req, res) => {
     if (err) return res.json({ success: false, err });
     res.status(200).json({
       success: true,
-      brand: doc
+      brand: doc,
     });
   });
 });
@@ -124,7 +159,7 @@ app.get("/api/users/auth", auth, (req, res) => {
     lastName: req.user.lastName,
     cart: req.user.cart,
     role: req.user.role,
-    history: req.user.history
+    history: req.user.history,
   });
 });
 
@@ -135,7 +170,7 @@ app.post("/api/users/register", (req, res) => {
     if (err) return res.json({ success: false, err });
     res.status(200).json({
       success: true,
-      userData: doc
+      userData: doc,
     });
   });
 });
@@ -145,19 +180,16 @@ app.post("/api/users/login", (req, res) => {
     if (!user)
       return res.json({
         loginSuccess: false,
-        message: "FAIL: Email not found"
+        message: "FAIL: Email not found",
       });
     user.comparePassword(req.body.password, (err, isMatch) => {
       if (!isMatch)
         return res.json({ loginSuccess: false, message: "wrong password" });
       user.generateToken((err, user) => {
         if (err) return res.status(400).send(err);
-        res
-          .cookie("x_auth", user.token)
-          .status(200)
-          .json({
-            loginSuccess: true
-          });
+        res.cookie("x_auth", user.token).status(200).json({
+          loginSuccess: true,
+        });
       });
     });
   });
@@ -167,7 +199,7 @@ app.get("/api/users/logout", auth, (req, res) => {
   User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, doc) => {
     if (err) return res.json({ success: false, err });
     return res.status(200).send({
-      success: true
+      success: true,
     });
   });
 });
