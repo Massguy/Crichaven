@@ -70,7 +70,7 @@ export async function getProductsToShop(
     filters,
   };
   const request = await axios
-    .post(`${PRODUCT_SERVER}shop`, data)
+    .post(`${PRODUCT_SERVER}/shop`, data)
     .then((response) => {
       let newState = [...previousState, ...response.data.cricketbats];
       return {
@@ -85,7 +85,10 @@ export async function getProductsToShop(
 }
 
 export async function addProduct(registerData) {
-  const request = await axios.post(`${PRODUCT_SERVER}cricketbat`, registerData);
+  const request = await axios.post(
+    `${PRODUCT_SERVER}/cricketbat`,
+    registerData
+  );
   console.log(request.data);
   return {
     type: ADD_PRODUCT,
