@@ -60,7 +60,7 @@ export async function addToCart(_id) {
 }
 export async function getCartItems(cartItems, userCart) {
   const request = await axios
-    .get(`${PRODUCT_SERVER}bat_by_id?id=${cartItems}&type=array`)
+    .get(`${PRODUCT_SERVER}/bat_by_id?id=${cartItems}&type=array`)
     .then((response) => {
       userCart.forEach((item) => {
         response.data.forEach((k, i) => {
