@@ -3,6 +3,10 @@ import {
   GET_PRODUCTS_BY_SELL,
   GET_BRANDS,
   GET_PRODUCTS_TO_SHOP,
+  ADD_PRODUCT,
+  CLEAR_PRODUCT,
+  GET_SINGLE_PRODUCT,
+  CLEAR_SINGLE_PRODUCT,
 } from ".././actions/types";
 
 export default function (state = {}, action) {
@@ -22,7 +26,26 @@ export default function (state = {}, action) {
         toShop: action.payLoad.cricketbats,
         toShopSize: action.payLoad.size,
       };
-
+    case ADD_PRODUCT:
+      return {
+        ...state,
+        addProduct: action.payLoad,
+      };
+    case CLEAR_PRODUCT:
+      return {
+        ...state,
+        addProduct: action.payLoad,
+      };
+    case GET_SINGLE_PRODUCT:
+      return {
+        ...state,
+        prodDetail: action.payLoad,
+      };
+    case CLEAR_SINGLE_PRODUCT:
+      return {
+        ...state,
+        prodDetail: action.payLoad,
+      };
     default:
       return state;
   }

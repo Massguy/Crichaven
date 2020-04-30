@@ -1,23 +1,39 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 const links = [
   {
     name: "My Account",
-    linkTo: "/user/dashboard"
+    linkTo: "/user/dashboard",
   },
   {
     name: "User Information",
-    linkTo: "/user/user_profile"
+    linkTo: "/user/user_profile",
   },
   {
     name: "My Cart",
-    linkTo: "/user/cart"
-  }
+    linkTo: "/user/cart",
+  },
 ];
 
-const UserLayout = props => {
-  const generateLinks = links =>
+const admin = [
+  {
+    name: "Site Info",
+    linkTo: "/admin/site_info",
+  },
+  {
+    name: "Add Products",
+    linkTo: "/admin/add_product",
+  },
+  {
+    name: "Manage categories",
+    linkTo: "/admin/manage_categories",
+  },
+];
+
+const UserLayout = (props) => {
+  const generateLinks = (links) =>
     links.map((item, i) => (
       <Link to={item.linkTo} key={i}>
         {item.name}
@@ -30,6 +46,12 @@ const UserLayout = props => {
         <div className="user_left_nav">
           <h2>My Account</h2>
           <div className="links">{generateLinks(links)}</div>
+          {props.user.userData.isAdmin ? (
+            <div>
+              <h2>Admin</h2>
+              <div className="links">{generateLinks(admin)}</div>
+            </div>
+          ) : null}
         </div>
         <div className="user_right">{props.children}</div>
       </div>
@@ -37,4 +59,9 @@ const UserLayout = props => {
   );
 };
 
-export default UserLayout;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+export default connect(mapStateToProps)(UserLayout);

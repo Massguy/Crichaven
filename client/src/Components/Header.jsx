@@ -8,40 +8,40 @@ class Header extends Component {
       {
         name: "Home",
         linkTo: "/",
-        public: true
+        public: true,
       },
       {
         name: "Cricket Bats",
         linkTo: "/shop",
-        public: true
-      }
+        public: true,
+      },
     ],
     user: [
       {
         name: "My Cart",
         linkTo: "/user/cart",
-        public: false
+        public: false,
       },
       {
         name: "My Account",
         linkTo: "/user/dashboard",
-        public: false
+        public: false,
       },
       {
         name: "Log In",
         linkTo: "/register_login",
-        public: true
+        public: true,
       },
       {
         name: "Log out",
         linkTo: "/user/logout",
-        public: false
-      }
-    ]
+        public: false,
+      },
+    ],
   };
 
   logoutHandler = () => {
-    this.props.dispatch(logoutUser()).then(response => {
+    this.props.dispatch(logoutUser()).then((response) => {
       if (response.payLoad.success) {
         this.props.history.push("/");
       }
@@ -50,7 +50,7 @@ class Header extends Component {
 
   cartLink = (item, i) => {
     const user = this.props.user.userData;
-    console.log(user);
+
     return (
       <div className="cart_link" key={i}>
         <span>{user.cart ? user.cart.length : 0}</span>
@@ -73,10 +73,10 @@ class Header extends Component {
         {item.name}
       </Link>
     );
-  showLinks = type => {
+  showLinks = (type) => {
     let list = [];
     if (this.props.user.userData) {
-      type.forEach(item => {
+      type.forEach((item) => {
         if (!this.props.user.userData.isAuth) {
           if (item.public === true) {
             list.push(item);
@@ -116,7 +116,7 @@ class Header extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.user,
   };
 }
 

@@ -1,7 +1,7 @@
 import React from "react";
 import UserLayout from "../../Hoc/User";
 import MyButton from "../../utils/Mybutton";
-import user_reducer from "../../reducers/user_reducer";
+import UserHistoryBlock from "../../utils/User/history_block";
 
 export default function UserDashboard({ user }) {
   return (
@@ -20,10 +20,14 @@ export default function UserDashboard({ user }) {
             linkTo="/user/user_profile"
           ></MyButton>
         </div>
-        <div className="user_nfo_panel">
-          <h1>History Purchases</h1>
-          <div className="user_product_block_wrapper">History</div>
-        </div>
+        {user.userData.history ? (
+          <div className="user_nfo_panel">
+            <h1>History Purchases</h1>
+            <div className="user_product_block_wrapper">
+              <UserHistoryBlock products={user.userData.history} />
+            </div>
+          </div>
+        ) : null}
       </div>
     </UserLayout>
   );

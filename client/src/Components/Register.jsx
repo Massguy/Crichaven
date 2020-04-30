@@ -16,12 +16,12 @@ class Register extends Component {
         config: {
           name: "name_input",
           type: "text",
-          placeholder: "Enter your name"
+          placeholder: "Enter your name",
         },
         validation: { required: true },
         valid: false,
         touched: false,
-        validationMessage: ""
+        validationMessage: "",
       },
       lastName: {
         element: "input",
@@ -29,12 +29,12 @@ class Register extends Component {
         config: {
           name: "lastName_input",
           type: "text",
-          placeholder: "Enter your lastName"
+          placeholder: "Enter your lastName",
         },
         validation: { required: true },
         valid: false,
         touched: false,
-        validationMessage: ""
+        validationMessage: "",
       },
       email: {
         element: "input",
@@ -42,12 +42,12 @@ class Register extends Component {
         config: {
           name: "email_input",
           type: "email",
-          placeholder: "Enter your email"
+          placeholder: "Enter your email",
         },
         validation: { required: true, email: true },
         valid: false,
         touched: false,
-        validationMessage: ""
+        validationMessage: "",
       },
       password: {
         element: "input",
@@ -55,12 +55,12 @@ class Register extends Component {
         config: {
           name: "password_input",
           type: "password",
-          placeholder: "Enter your password"
+          placeholder: "Enter your password",
         },
         validation: { required: true },
         valid: false,
         touched: false,
-        validationMessage: ""
+        validationMessage: "",
       },
       confirmPassword: {
         element: "input",
@@ -68,17 +68,17 @@ class Register extends Component {
         config: {
           name: "confirm_password_input",
           type: "password",
-          placeholder: "Confirm Your Password"
+          placeholder: "Confirm Your Password",
         },
         validation: { required: true, confirm: "password" },
         valid: false,
         touched: false,
-        validationMessage: ""
-      }
-    }
+        validationMessage: "",
+      },
+    },
   };
 
-  submitForm = event => {
+  submitForm = (event) => {
     event.preventDefault();
 
     let registerData = generateData(this.state.formData, "register");
@@ -88,12 +88,11 @@ class Register extends Component {
     if (validForm) {
       this.props
         .dispatch(registerUser(registerData))
-        .then(response => {
-          console.log(response);
+        .then((response) => {
           if (response.payLoad.success) {
             this.setState({
               formError: false,
-              formSuccess: true
+              formSuccess: true,
             });
             setTimeout(() => {
               this.props.history.push("/register_login");
@@ -102,18 +101,18 @@ class Register extends Component {
             this.setState({ formError: true });
           }
         })
-        .catch(e => {
+        .catch((e) => {
           this.setState({ formError: true });
         });
     } else {
       this.setState({ formError: true });
     }
   };
-  updateForm = elem => {
+  updateForm = (elem) => {
     const newFormdata = update(elem, this.state.formData, "register");
     this.setState({
       formError: false,
-      formData: newFormdata
+      formData: newFormdata,
     });
   };
 
@@ -123,21 +122,21 @@ class Register extends Component {
         <div className="container">
           <div className="register_login_container">
             <div className="left">
-              <form onSubmit={event => this.submitForm(event)}>
+              <form onSubmit={(event) => this.submitForm(event)}>
                 <h2>Fill In Your Details</h2>
                 <div className="form_block_two">
                   <div className="block">
                     <FormField
                       id={"firstName"}
                       formData={this.state.formData.firstName}
-                      change={elem => this.updateForm(elem)}
+                      change={(elem) => this.updateForm(elem)}
                     />
                   </div>
                   <div className="block">
                     <FormField
                       id={"lastName"}
                       formData={this.state.formData.lastName}
-                      change={elem => this.updateForm(elem)}
+                      change={(elem) => this.updateForm(elem)}
                     />
                   </div>
                 </div>
@@ -145,7 +144,7 @@ class Register extends Component {
                   <FormField
                     id={"email"}
                     formData={this.state.formData.email}
-                    change={elem => this.updateForm(elem)}
+                    change={(elem) => this.updateForm(elem)}
                   />
                 </div>
                 <h2>Verify Password</h2>
@@ -154,14 +153,14 @@ class Register extends Component {
                     <FormField
                       id={"password"}
                       formData={this.state.formData.password}
-                      change={elem => this.updateForm(elem)}
+                      change={(elem) => this.updateForm(elem)}
                     />
                   </div>
                   <div className="block">
                     <FormField
                       id={"confirmPassword"}
                       formData={this.state.formData.confirmPassword}
-                      change={elem => this.updateForm(elem)}
+                      change={(elem) => this.updateForm(elem)}
                     />
                   </div>
                 </div>
@@ -171,7 +170,7 @@ class Register extends Component {
                       Make sure your data is correct
                     </div>
                   ) : null}
-                  <button onClick={e => this.submitForm(e)}>
+                  <button onClick={(e) => this.submitForm(e)}>
                     Create An Account
                   </button>
                 </div>
