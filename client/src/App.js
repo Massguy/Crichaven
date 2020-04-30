@@ -34,11 +34,7 @@ const App = () => {
           exact
           component={Auth(AddProduct, true)}
         />
-        <Route
-          path="/register"
-          exact
-          render={(props) => Auth(<Register {...props} />, false)}
-        />
+        <Route path="/register" exact component={Auth(Register, false)} />
         <Route
           path="/product_detail/:id"
           exact

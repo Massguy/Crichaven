@@ -24,7 +24,6 @@ class SingleProduct extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div>
         <PageTop title="Product detail" />

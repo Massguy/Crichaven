@@ -17,7 +17,6 @@ class Home extends Component {
     return (
       <div>
         <HomeSlider />
-        {console.log(this.props)}
         <CardBlock
           list={this.props.products.bySell}
           title="Best Selling Cricket Bats"
