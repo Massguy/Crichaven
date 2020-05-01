@@ -16,7 +16,7 @@ password: yo123
 
 <p>1) clone the repo</p>
 
-git clone https://github.com/Massguy/crichaven
+git clone https://github.com/Massguy/Crichaven.git
 
 <p>2) install node modules</p>
 
